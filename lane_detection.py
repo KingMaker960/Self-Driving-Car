@@ -6,17 +6,19 @@ import matplotlib.pyplot as plt
 # img = cv2.imread('test_image.jpg')
 # lane_img = np.copy(img)
 cap = cv2.VideoCapture("test2.mp4")
+imagee = cv2.imread('test_image.jpg')
 
 
 def preprocessing(image):
     # 2.conversion to grey scale to transform 3 channel image into 1 channel image
     gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-
+    # cv2.imshow('grayScale', gray_img)
     # 3. Reduce Noise
     blur_img = cv2.GaussianBlur(gray_img, (5, 5), 0)
-
+    # cv2.imshow('noise reduction', blur_img)
     # Edge Detection
     canny_img = cv2.Canny(blur_img, 50, 150)
+    # cv2.imshow('edge detected', canny_img)
     return canny_img
 
 
@@ -63,27 +65,29 @@ def display_lines(image, lines):
     line_img = np.zeros_like(image)
     if (lines is not None):
         for x1, y1, x2, y2 in lines:
-            cv2.line(line_img, (x1, y1), (x2, y2), (255, 0, 0), 10)
+            cv2.line(line_img, (x1, y1), (x2, y2), (0, 0, 255), 10)
     return line_img
 
 
 while (cap.isOpened()):
     _, frame = cap.read()
     # 2. Preprocessing Image
-    processed_img = preprocessing(frame)
+    processed_img = preprocessing(imagee)
 
     # 3. Finding Region of Interest
     cropped_img = region_of_interest(processed_img)
 
     # 4. Hough Transform to find lane line
     lines = cv2.HoughLinesP(cropped_img, 2, np.pi/180,
-                            100, np.array([]), minLineLength=40, maxLineGap=5)
-    averaged_lines = average_slope_intercept(frame, lines)
-    line_img = display_lines(frame, averaged_lines)
+                            100, maxLineGap=50)
+    averaged_lines = average_slope_intercept(imagee, lines)
+    line_img = display_lines(imagee, averaged_lines)
 
     # Output
-    final_image = cv2.addWeighted(frame, 0.8, line_img, 1, 1)
+    final_image = cv2.addWeighted(imagee, 0.8, line_img, 1, 1)
+
     cv2.imshow('result', final_image)
+    # cv2.imshow('Hough Transform', line_img)
     if cv2.waitKey(1) == ord('q'):
         break
 
