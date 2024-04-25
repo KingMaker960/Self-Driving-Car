@@ -16,7 +16,7 @@ Lane detection is one of the core functions of computer vision and image process
 Step 1: Image Preprocessing 
 	At first the input image was converted into gray scale. Converting the image to gray scale further simplifies processing by reducing color channels to a single intensity value per pixel.
 The following formula can be used to determine the grayscale intensity (I) at a pixel (x, y) in an input color image having red (R), green (G), and blue (B) channels:
-                           I (x,y) = 0.299 * R (x,y) + 0.587* G (x,y) +0.144*B (x,y)        (4.2.1)
+I (x,y) = 0.299 * R (x,y) + 0.587* G (x,y) +0.144*B (x,y) 
 The coefficients (0.299, 0.587, and 0.114) are weights that nearly match the luminance of each color channel as seen by the human eye. These weights are based on the luminosity function, which depicts the sensitivity of the human eye to different colors. This process converts (8*8*8) bit color representation into 8-bit gray color representation ranging from 0 to 255.
 
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/2fb62b73-07ca-4b92-89bc-c317b182313e)
@@ -66,9 +66,9 @@ Once lane was detected an image was created with the detected lanes overlaying t
 
 Step 6: Decision Making
 To make decisions regarding navigation of car, it is necessary to calculate middle points so that it could be taken as reference for navigation. It was calculated using mathematical expression:
-                             (x_mid,y_mid) = ((x1 + x2)/2,(y1 + y2)/2)                              
+(x_mid,y_mid) = ((x1 + x2)/2,(y1 + y2)/2)                              
 After calculating middle points, the offset of car with respect to middle line was calculated so that the decision regarding moving it left or right could be made. It was calculated using:
-                             offset = lane center-carcenter                              
+offset = lane center-carcenter                              
 
  
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/5276c67d-f419-45ff-bd46-8f9d091ca0d1)
