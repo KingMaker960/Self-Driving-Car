@@ -23,9 +23,11 @@ The coefficients (0.299, 0.587, and 0.114) are weights that nearly match the lum
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/5068eb87-ff93-4c44-9aeb-1ae2567f4a07)
 
 Once image was normalized, the noise in the image was reduced by introducing Gaussian Blur to make subsequent edge detection more robust. It was achieved by applying a weighted average to the pixel values. This weighted average is calculated using a convolution operation between Gaussian kernel and an input image I (x, y).
+
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/12a04a15-a4a7-4bb3-9a36-515a48ce4a72)
 
 After that, edges were found using cunning edge detection. The methodology for identifying a sharp shift in intensity involves comparing each pixel to its neighbor.
+
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/3c1373aa-58a1-43c8-bfe0-ca14c09ff133)
 
 Step 2: Finding ROI and Masking
@@ -39,22 +41,7 @@ By using perspective transformation, the ROI that was selected from the original
 Step 4: Hough Transform
 In image processing, the Hough Transform is a method for identifying shapes—mostly lines, but also other geometric patterns. In 1962, Paul Hough invented the transform, mainly for the purpose of locating lines in binary images. The Hough transform algorithm was used to draw lane lines when there are multiple breakpoints.  
 Standard Hough Transform for Line detection includes:
-	Parameterization: 
-	Lines in polar coordinates are represented by the Hough Transform. It represents a line using the polar form, which is equivalent to xcos(θ)+ysin(θ), rather than the standard Cartesian coordinates (x, y).
-	Accumulator Space:
-	By generating an accumulator space, sometimes referred to as the Hough space, the Hough Transform works. This area is a grid, with each cell representing a potential line in the picture.
-	r and θ are represented by the two grid dimensions. The r axis usually extends from negative to positive, and the θ axis typically lies between 0 and 180 degrees.
-	Voting:
-	The Hough Transform casts votes in the accumulator space for all potential lines that could pass through each edge pixel in the image.
-	The accumulator grid's matching cells are increased to represent the vote. In the Hough space, every edge pixel adds to a sinusoidal curve.
-	Finding Peaks:
-	Once all edge pixels have voted, the peaks of the accumulator space are located. These peaks coincide with the image's line parameters (r, θ).
-	With increasing peak height, there is a greater chance of a line with the matching parameters appearing in the image.
-	Thresholding:
-	A threshold is used to remove weak lines from the accumulator space. Only peaks that rise above a given threshold are regarded as detected lines.
-	Conversion to Cartesian Coordinates:
-	After that, the lines that have been identified in Hough space are converted back to Cartesian coordinates to yield the equations of the lines in the image.
- 
+
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/95102380-c5ab-4fd6-9d21-02610992ca69)
 
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/7ea67a8b-2bd1-450d-b8d7-9ec7cde405c6)
@@ -70,7 +57,13 @@ To make decisions regarding navigation of car, it is necessary to calculate midd
 After calculating middle points, the offset of car with respect to middle line was calculated so that the decision regarding moving it left or right could be made. It was calculated using:
 offset = lane center-carcenter                              
 
- 
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/5276c67d-f419-45ff-bd46-8f9d091ca0d1)
 
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/665c5b42-541a-4ce2-87d6-6035a3276988)
+
+## Schematic Diagram
+![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/525b55f2-6b34-46fe-a91c-4c70755f5308)
+
+## Prototype Model
+![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/be20ec21-916d-46e7-8461-8aff4f3fe476)
+
