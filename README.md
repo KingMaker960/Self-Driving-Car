@@ -14,12 +14,10 @@ Principle of lane detection
 Lane detection is one of the core functions of computer vision and image processing. Finding and extracting the lane lines is the main target of this system. The steps involved in lane detection includes:
 
 Step 1: Image Preprocessing 
-	At first the input image was converted into gray scale. Converting the image to gray scale further simplifies processing by reducing color channels to a single intensity value per pixel.
-The following formula can be used to determine the grayscale intensity (I) at a pixel (x, y) in an input color image having red (R), green (G), and blue (B) channels:
-I (x,y) = 0.299 * R (x,y) + 0.587* G (x,y) +0.144*B (x,y) 
-The coefficients (0.299, 0.587, and 0.114) are weights that nearly match the luminance of each color channel as seen by the human eye. These weights are based on the luminosity function, which depicts the sensitivity of the human eye to different colors. This process converts (8*8*8) bit color representation into 8-bit gray color representation ranging from 0 to 255.
+	At first the input image was converted into gray scale. Converting the image to gray scale further simplifies processing by reducing color channels to a single intensity value per pixel. This process converts (8*8*8) bit color representation into 8-bit gray color representation ranging from 0 to 255.
 
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/2fb62b73-07ca-4b92-89bc-c317b182313e)
+
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/5068eb87-ff93-4c44-9aeb-1ae2567f4a07)
 
 Once image was normalized, the noise in the image was reduced by introducing Gaussian Blur to make subsequent edge detection more robust. It was achieved by applying a weighted average to the pixel values. This weighted average is calculated using a convolution operation between Gaussian kernel and an input image I (x, y).
@@ -33,6 +31,7 @@ After that, edges were found using cunning edge detection. The methodology for i
 Step 2: Finding ROI and Masking
 The ROI was defined to focus on the area where the lane markings are expected. This helped in ignoring irrelevant parts of the image, such as the sky and surrounding scenery.
 Once ROI was defined, a binary mask was applied to the edge-detected image to zero out the pixels outside the defined ROI.
+
 ![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/3369d9dd-afa6-4e30-96b6-775eb52282f2)
 
 Step 3: Perspective Transformation (Bird’s eye view)
@@ -40,11 +39,6 @@ By using perspective transformation, the ROI that was selected from the original
 
 Step 4: Hough Transform
 In image processing, the Hough Transform is a method for identifying shapes—mostly lines, but also other geometric patterns. In 1962, Paul Hough invented the transform, mainly for the purpose of locating lines in binary images. The Hough transform algorithm was used to draw lane lines when there are multiple breakpoints.  
-Standard Hough Transform for Line detection includes:
-
-![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/95102380-c5ab-4fd6-9d21-02610992ca69)
-
-![image](https://github.com/KingMaker960/Self-Driving-Car/assets/85979695/7ea67a8b-2bd1-450d-b8d7-9ec7cde405c6)
 
 Step 5: Drawing lanes on original image 
 Once lane was detected an image was created with the detected lanes overlaying the original image.
